@@ -1,0 +1,24 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "organizations:*",
+        "servicequotas:ListRequestedServiceQuotas",
+        "servicequotas:RequestServiceQuotaIncrease"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": "iam:CreateServiceLinkedRole",
+      "Resource": "arn:aws:iam::*:role/aws-service-role/organizations.amazonaws.com/AWSServiceRoleForOrganizations",
+      "Condition": {
+        "StringLike": {
+          "iam:AWSServiceName": "organizations.amazonaws.com"
+        }
+      }
+    }
+  ]
+}

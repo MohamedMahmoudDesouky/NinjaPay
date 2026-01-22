@@ -1,0 +1,11 @@
+{
+  "tags": {
+    "Environment": {
+      "tag_key": { "@@assign": "Environment" },
+      "tag_value": { "@@assign": ["Production", "Staging", "Development", "Sandbox"] }
+    },
+    "Owner": {
+      "tag_key": { "@@assign": "Owner" }
+    }
+  }
+}
