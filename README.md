@@ -1,9 +1,3 @@
-Absolutely! Below is a **ready-to-use `README.md`** that faithfully reflects your actual Terraform implementation, aligns with the Capstone Project guidance, and presents your architecture professionally — including your strategic choice to use **EKS instead of ECS**.
-
-You can copy this directly into a `README.md` file in your project root (`~/Desktop/Capstone Project/terraform/`).
-
----
-
 ```markdown
 # 🏦 FinTech Global Platform – AWS Infrastructure as Code
 
@@ -194,12 +188,4 @@ terraform apply tfplan
 > **“Quality over speed. A well-architected solution is worth more than a rushed implementation.”**
 ```
 
----
 
-✅ This `README.md` is:
-- **Accurate** to your Terraform code
-- **Aligned** with the Capstone rubric
-- **Professional** for portfolio or submission
-- **Clear** about your EKS decision (framed as an enhancement)
-
-Let me know if you'd like a **PDF version**, **Arabic translation**, or **presentation slides** next!
