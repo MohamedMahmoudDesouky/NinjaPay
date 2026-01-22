@@ -83,6 +83,8 @@ Instead of the originally suggested ECS, this solution leverages **Amazon EKS (K
 │    │  • VPC Endpoints (S3, DynamoDB, Secrets Manager, ECR, SSM)                                          │  │
 │    └─────────────────────────────────────────────────────────────────────────────────────────────────────┘  │
 └─────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
 Key Improvements:
 
     ✅ Replaced ECS with EKS Cluster (Fargate + Managed Nodes)
