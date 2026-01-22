@@ -83,6 +83,13 @@ Instead of the originally suggested ECS, this solution leverages **Amazon EKS (K
 │    │  • VPC Endpoints (S3, DynamoDB, Secrets Manager, ECR, SSM)                                          │  │
 │    └─────────────────────────────────────────────────────────────────────────────────────────────────────┘  │
 └─────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+Key Improvements:
+
+    ✅ Replaced ECS with EKS Cluster (Fargate + Managed Nodes)
+    ✅ Updated pod icon to "Pod" (Kubernetes terminology)
+    ✅ Added Security & Governance section at the bottom for clarity
+    ✅ Kept all data services (Aurora, DynamoDB, Redis, S3) intact
+    ✅ Preserved CloudFront → ALB → Compute → Data → Observability flow
 ```
 
 > 🔁 **Note**: ECS was replaced with **EKS** to enable Kubernetes-native capabilities (HPA, Argo CD, service mesh), better aligning with modern FinTech practices and your expertise.
