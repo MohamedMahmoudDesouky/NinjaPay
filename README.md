@@ -180,6 +180,3 @@ terraform apply tfplan
 ---
 
 > **“Quality over speed. A well-architected solution is worth more than a rushed implementation.”**
-```
-
-
