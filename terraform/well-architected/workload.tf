@@ -18,9 +18,3 @@ resource "aws_wellarchitected_workload" "fintech_prod" {
   }
 }
 
-# After creation, manually:
-# 1. Go to AWS Console → Well-Architected Tool
-# 2. Open this workload
-# 3. Answer questions for all 6 pillars
-# 4. Create a baseline milestone
-# 5. Address High-Risk Issues (HRIs)
