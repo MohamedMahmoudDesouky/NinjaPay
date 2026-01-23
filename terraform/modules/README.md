@@ -6,7 +6,53 @@ This repository defines a **secure, scalable, and production-ready AWS infrastru
 
 ## 🏗️ Architecture Overview
 
-![High-Level Architecture](https://via.placeholder.com/800x400?text=FinTech+Global+AWS+Architecture)  
++----------------------------------------------------------------------------------+
+|                                  AWS CLOUD (us-east-1)                           |
+|                                                                                  |
+|  +----------------+        +----------------------------------+                  |
+|  |   Internet     |<-----> |         Application Load Balancer (ALB)             |
+|  +----------------+        +----------------------------------+                  |
+|                                   |                                              |
+|                                   v                                              |
+|  +---------------------------------------------------------------------------+   |
+|  |                            AMAZON EKS CLUSTER                             |   |
+|  |  +----------------+    +----------------+    +----------------+           |   |
+|  |  | Fargate Pod    |    | Managed Node   |    | Horizontal Pod |           |   |
+|  |  | (fintech-prod) |    | Group (system) |    | Autoscaler     |           |   |
+|  |  +----------------+    +----------------+    +----------------+           |   |
+|  +---------------------------------------------------------------------------+   |
+|                |                         |                                      |
+|                | (Private VPC)           |                                      |
+|                v                         v                                      |
+|  +----------------------+    +------------------------+                        |
+|  | Aurora PostgreSQL    |    | Amazon ElastiCache     |                        |
+|  | - Writer + Reader    |    | - Redis Cluster        |                        |
+|  | - Auto Scaling       |    | - Auth + Encryption    |                        |
+|  +----------------------+    +------------------------+                        |
+|                |                         |                                      |
+|                v                         v                                      |
+|  +----------------------+    +------------------------+                        |
+|  | DynamoDB (Sessions)  |    | S3 Data Lake           |                        |
+|  | - Auto Scaling RCUs/ |    | - Versioning           |                        |
+|  |   WCUs               |    | - Lifecycle Rules      |                        |
+|  +----------------------+    | - KMS Encryption       |                        |
+|                              +------------------------+                        |
+|                                                                                  |
+|  +---------------------------------------------------------------------------+   |
+|  |                          SECURITY & GOVERNANCE                            |   |
+|  |  • KMS Key (data encryption)                                              |   |
+|  |  • Secrets Manager (DB, Redis, API keys)                                  |   |
+|  |  • IAM Roles (EKS, RDS Monitoring)                                        |   |
+|  |  • VPC Endpoints (S3, DynamoDB, ECR, Secrets Manager, SSM)                |   |
+|  +---------------------------------------------------------------------------+   |
+|                                                                                  |
+|  +---------------------------------------------------------------------------+   |
+|  |                          COST & OPERATIONS                                |   |
+|  |  • AWS Budgets ($5k/mo + per-service)                                     |   |
+|  |  • Cost Anomaly Detection → SNS → Email                                   |   |
+|  |  • CloudWatch Dashboard (Estimated Charges, Budget Tracking)               |   |
+|  +---------------------------------------------------------------------------+   |
++----------------------------------------------------------------------------------+
 *(Diagram to be added in final documentation)*
 
 ### Core Components
