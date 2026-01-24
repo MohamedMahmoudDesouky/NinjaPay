@@ -1,7 +1,0 @@
-# fintech-namespace.yaml
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: fintech-prod
-  labels:
-    name: fintech-prod
