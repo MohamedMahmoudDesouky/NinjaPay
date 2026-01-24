@@ -1,0 +1,17 @@
+# Redis PDB - Cache Layer Protection
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: redis-pdb
+  namespace: bookstore
+  labels:
+    app: redis
+    tier: cache
+    pdb/bookstore: "true"
+spec:
+  minAvailable: 1  # Ensure cache availability
+  selector:
+    matchLabels:
+      app: redis
+      tier: cache
+  unhealthyPodEvictionPolicy: AlwaysAllow

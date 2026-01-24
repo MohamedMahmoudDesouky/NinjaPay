@@ -1,0 +1,30 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: frontend-nodeport-networkpolicy
+  namespace: bookstore
+spec:
+  podSelector:
+    matchLabels:
+      app: frontend
+      tier: frontend
+  policyTypes:
+    - Ingress
+  ingress:
+    # Allow traffic from backend pods (optional if backend needs to talk to frontend)
+    - from:
+        - podSelector:
+            matchLabels:
+              app: backend
+              tier: backend
+      ports:
+        - protocol: TCP
+          port: 8080
+
+    # Allow traffic from anywhere (NodePort access)
+    - from:
+        - ipBlock:
+            cidr: 0.0.0.0/0
+      ports:
+        - protocol: TCP
+          port: 8080

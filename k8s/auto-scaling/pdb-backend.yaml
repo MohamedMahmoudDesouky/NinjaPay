@@ -1,0 +1,19 @@
+# Backend PDB - API Service Protection
+# Limits disruptions to maximum 1 pod at a time
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: backend-pdb
+  namespace: bookstore
+  labels:
+    app: backend
+    tier: backend
+    pdb/bookstore: "true"
+spec:
+  maxUnavailable: 1  # Explicitly allow only 1 pod disruption
+  selector:
+    matchLabels:
+      app: backend
+      component: api
+      tier: backend
+  unhealthyPodEvictionPolicy: AlwaysAllow

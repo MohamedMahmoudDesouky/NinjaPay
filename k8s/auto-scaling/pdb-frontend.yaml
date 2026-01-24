@@ -1,0 +1,20 @@
+# k8s/base/advanced-pdbs.yaml
+---
+# Frontend PDB - High Availability Web Tier
+# Ensures at least 66% of frontend pods remain available during disruptions
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: frontend-pdb
+  namespace: bookstore
+  labels:
+    app: frontend
+    tier: frontend
+    pdb/bookstore: "true"
+spec:
+  minAvailable: 66%  # Allows disruption of only 1 pod in 3-replica setup
+  selector:
+    matchLabels:
+      app: frontend
+      tier: frontend
+  unhealthyPodEvictionPolicy: AlwaysAllow  # Evict unhealthy pods even if budget is exceeded

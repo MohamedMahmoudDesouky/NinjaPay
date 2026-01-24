@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: bookstore-quota
+  namespace: bookstore
+spec:
+  hard:
+    # CPU limits
+    requests.cpu: "4"
+    limits.cpu: "8"
+
+    # Memory limits
+    requests.memory: 6Gi
+    limits.memory: 12Gi
+
+    # Max number of Pods
+    pods: "50"
+
+    # Max number of PersistentVolumeClaims
+    persistentvolumeclaims: "15"
+
+    # Max storage (sum of PVCs in this namespace)
+    requests.storage: 70Gi
+
+    # Optional: max number of Services
+    services: "15"

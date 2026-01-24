@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  labels:
+    app: frontend
+    tier: frontend
+  namespace: bookstore
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: frontend
+      tier: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+        tier: frontend
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: frontend
+          image: selconyt/bookstore-frontend:v1.7
+          imagePullPolicy: IfNotPresent
+
+          ports:
+            - containerPort: 8080
+
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "64Mi"
+            limits:
+              cpu: "200m"
+              memory: "128Mi"
+
+          startupProbe:
+            httpGet:
+              path: /nginx-health
+              port: 8080
+            failureThreshold: 20
+            periodSeconds: 5
+
+          livenessProbe:
+            httpGet:
+              path: /nginx-health
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 20
+
+          readinessProbe:
+            httpGet:
+              path: /nginx-health
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 10
+
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
+
+      volumes:
+        - name: tmp
+          emptyDir: {}

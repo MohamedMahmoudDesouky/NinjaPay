@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: backend-config
+  namespace: bookstore
+data:
+  NODE_ENV: "production"
+  PORT: "3000"
+  DB_HOST: "mysql"
+  DB_PORT: "3306"
+  DB_NAME: "bookstore"
+  REDIS_HOST: "redis"
+  REDIS_PORT: "6379"
+  CACHE_TTL: "300"

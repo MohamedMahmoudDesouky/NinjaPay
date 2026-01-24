@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mysql-init-script
+  namespace: bookstore
+data:
+  init.sql: |
+    CREATE DATABASE IF NOT EXISTS bookstore;
+    USE bookstore;
+
+    CREATE TABLE IF NOT EXISTS books (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      title VARCHAR(255) NOT NULL,
+      author VARCHAR(255) NOT NULL,
+      isbn VARCHAR(20),
+      price DECIMAL(10,2)
+    );
+
+    INSERT INTO books (title, author, isbn, price) VALUES
+    ('The DevOps Handbook', 'Gene Kim', '978-1942788003', 29.99),
+    ('Kubernetes Up & Running', 'Kelsey Hightower', '978-1492046530', 39.99);

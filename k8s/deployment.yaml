@@ -1,0 +1,55 @@
+# deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fintech-api
+  namespace: fintech-prod
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: fintech-api
+  template:
+    metadata:
+      labels:
+        app: fintech-api
+    spec:
+      containers:
+      - name: api
+        image: <your-ecr-repo>:latest
+        ports:
+        - containerPort: 8080
+        env:
+        - name: ENVIRONMENT
+          value: "production"
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: fintech-db-secret
+              key: password
+        - name: API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: fintech-api-secret
+              key: api-key
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "250m"
+          limits:
+            memory: "1Gi"
+            cpu: "500m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fintech-api-svc
+  namespace: fintech-prod
+spec:
+  selector:
+    app: fintech-api
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+  type: ClusterIP

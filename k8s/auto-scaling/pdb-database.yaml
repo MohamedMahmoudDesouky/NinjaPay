@@ -1,0 +1,17 @@
+# Database PDB - Stateful Workload Protection
+# Critical: Never allow MySQL disruption during maintenance
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:  
+  name: mysql-pdb
+  namespace: bookstore
+  labels:
+    app: mysql
+    tier: database
+    pdb/bookstore: "true"
+spec:
+  minAvailable: 1  # Must always have 1 MySQL pod running
+  selector:
+    matchLabels:
+      app: mysql
+      tier: database

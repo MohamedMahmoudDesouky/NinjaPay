@@ -1,0 +1,12 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - backend-configmap.yaml
+  - backend-secret.yaml
+  - database-configmap.yaml
+  - database-secret.yaml
+  - database-network-policy.yaml
+  - frontend-network-policy.yaml
+  - redis-networkpolicy.yaml
+  - resource-quotas.yaml
